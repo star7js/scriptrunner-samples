@@ -26,7 +26,7 @@
 
     <properties>
         <!-- Set your JIRA version here -->
-        <jira.version>8.0.0</jira.version>
+        <jira.version>8.13.25</jira.version>
         <!-- Set logging levels for development here -->
         <logging.levels>com.example;DEBUG,com.onresolve;DEBUG</logging.levels>
     </properties>
