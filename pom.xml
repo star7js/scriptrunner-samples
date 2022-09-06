@@ -13,7 +13,6 @@
     <name>ScriptRunner Samples</name>
 
     <modules>
-        <module>bamboo</module>
         <module>bitbucket</module>
         <module>confluence</module>
         <module>jira</module>
