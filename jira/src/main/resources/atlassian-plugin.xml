@@ -8,9 +8,4 @@
     </plugin-info>
 
     <resource type="i18n" name="i18n" location="sr-dependent-plugin"/>
-
-    <component key="baseUrlStartupTask" name="Update Jira's Base URL"
-               class="com.adaptavist.SetBaseUrlStartupTask" public="true" application="jira">
-        <interface>com.atlassian.sal.api.upgrade.PluginUpgradeTask</interface>
-    </component>
 </atlassian-plugin>
