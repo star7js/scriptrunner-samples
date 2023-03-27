@@ -5,10 +5,10 @@ import com.atlassian.bitbucket.project.ProjectCreateRequest
 import com.atlassian.bitbucket.project.ProjectCreationCanceledException
 import com.atlassian.bitbucket.project.ProjectService
 import com.atlassian.sal.api.component.ComponentLocator
-import com.onresolve.scriptrunner.canned.common.admin.SrSpecification
 import spock.lang.Shared
+import spock.lang.Specification
 
-class ProjectNamingConventionListenerIT extends SrSpecification {
+class ProjectNamingConventionListenerIT extends Specification {
 
     @Shared
     ProjectService projectService = ComponentLocator.getComponent(ProjectService)

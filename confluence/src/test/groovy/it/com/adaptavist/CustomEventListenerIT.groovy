@@ -3,10 +3,10 @@ package it.com.adaptavist
 import com.atlassian.confluence.spaces.SpaceManager
 import com.atlassian.confluence.user.AuthenticatedUserThreadLocal
 import com.atlassian.sal.api.component.ComponentLocator
-import com.onresolve.scriptrunner.canned.common.admin.SrSpecification
 import spock.lang.Shared
+import spock.lang.Specification
 
-class CustomEventListenerIT extends SrSpecification {
+class CustomEventListenerIT extends Specification {
 
     @Shared
     SpaceManager spaceManager = ComponentLocator.getComponent(SpaceManager)

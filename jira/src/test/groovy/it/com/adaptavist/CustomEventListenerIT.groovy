@@ -7,10 +7,10 @@ import com.atlassian.jira.project.AssigneeTypes
 import com.atlassian.jira.project.ProjectManager
 import com.atlassian.jira.project.type.ProjectTypeKeys
 import com.atlassian.jira.user.ApplicationUser
-import com.onresolve.scriptrunner.canned.common.admin.SrSpecification
 import spock.lang.Shared
+import spock.lang.Specification
 
-class CustomEventListenerIT extends SrSpecification {
+class CustomEventListenerIT extends Specification {
 
     @Shared
     ProjectService projectService = ComponentAccessor.getComponent(ProjectService)
