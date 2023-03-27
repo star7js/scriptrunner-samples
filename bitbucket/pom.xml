@@ -26,7 +26,7 @@
 
     <properties>
         <!-- Set your Bitbucket version here -->
-        <bitbucket.version>7.17.10</bitbucket.version>
+        <bitbucket.version>7.21.10</bitbucket.version>
     </properties>
 
     <dependencies>

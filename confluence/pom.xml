@@ -26,7 +26,7 @@
 
     <properties>
         <!-- Set your Confluence version here -->
-        <confluence.version>7.13.9</confluence.version>
+        <confluence.version>7.19.7</confluence.version>
         <!-- Set logging levels for development here -->
         <logging.levels>com.onresolve;DEBUG, com.example;DEBUG</logging.levels>
     </properties>
