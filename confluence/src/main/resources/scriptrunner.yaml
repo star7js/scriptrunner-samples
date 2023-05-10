@@ -5,7 +5,7 @@ scriptListeners:
   - FIELD_NOTES: Change the description of all new spaces
     events:
       - com.atlassian.confluence.event.events.space.SpaceCreateEvent
-    FIELD_SCRIPT_FILE: com.adaptavist/CustomEventListenerScript.groovy
+    FIELD_SCRIPT_FILE: com/adaptavist/CustomEventListenerScript.groovy
     canned-script: com.onresolve.scriptrunner.canned.confluence.events.SimpleScriptedEventHandler
     friendlyEventNames: SpaceCreateEvent
     name: Custom event listener

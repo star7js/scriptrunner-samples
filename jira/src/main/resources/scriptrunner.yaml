@@ -7,7 +7,7 @@ scriptListeners:
       - ''
     events:
       - com.atlassian.jira.event.ProjectCreatedEvent
-    clazz: com.adaptavist/CustomEventListenerScript.groovy
+    clazz: com/adaptavist/CustomEventListenerScript.groovy
     canned-script: com.onresolve.scriptrunner.canned.jira.workflow.listeners.CustomListener
     friendlyEventNames: ProjectCreatedEvent
     name: Custom listener
