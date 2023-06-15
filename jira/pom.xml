@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adaptavist.pom</groupId>
         <artifactId>scriptrunner-jira-standard</artifactId>
-        <version>49</version>
+        <version>50</version>
         <relativePath/>
     </parent>
 
