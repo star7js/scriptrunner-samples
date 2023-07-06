@@ -1,8 +1,50 @@
 # ScriptRunner plugin descriptor
 !descriptor
+scriptPreHooks:
+  - id: 2de15fef-3349-46b7-a8b2-2712844a7f25
+    disabled: false
+    name: Custom pre-hook
+    repoNames: ALL
+    FIELD_PER_REPO_ID: null
+    perProjectId: null
+    FIELD_PROJECT_REPO_IDS:
+      - repo:-1
+    FIELD_NOTES: Reject push if it contains a .exe file
+    FIELD_CONDITION: null
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: null
+      scriptPath: com/adaptavist/SamplePreHook.groovy
+      parameters: { }
+    FIELD_HOOK_TRIGGERS:
+      - push
+    canned-script: com.onresolve.scriptrunner.canned.bitbucket.hooks.SimpleScriptedPreHook
+scriptPostHooks:
+  - id: 844e4c8b-5199-45c3-ad3d-63b1005b624f
+    disabled: false
+    FIELD_PROJECT_REPO_IDS:
+      - repo:-2
+    FIELD_NOTES: Sample Post-hook
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: "log.warn \"Sample Post-hook execute\""
+      parameters: {}
+    FIELD_EXECUTE_ASYNCHRONOUSLY: []
+    canned-script: com.onresolve.scriptrunner.canned.bitbucket.hooks.SimpleScriptedPostHook
+scriptMergeChecks:
+  - id: 0799e1a9-24f3-4714-bad8-30c653f4b2cb
+    disabled: false
+    FIELD_PROJECT_REPO_IDS:
+      - repo:-2
+    FIELD_NOTES: Sample Merge Check
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: |-
+        import com.atlassian.bitbucket.hook.repository.RepositoryHookResult
 
+        RepositoryHookResult.rejected("Reject message summary", "Detailed information about merge rejection.")
+      parameters: {}
+    canned-script: com.onresolve.scriptrunner.canned.bitbucket.mergechecks.SimpleScriptedMergeCheck
 scriptListeners:
-  - FIELD_NOTES: Ensure new project's names start with "FOO"
+  - id: 0e6dd82e-f9c4-4d6a-9574-791240104170
+    FIELD_NOTES: Ensure new project's names start with "FOO"
     FIELD_PROJECT_REPO_IDS:
       - repo:-1
     events:
@@ -27,3 +69,29 @@ scriptListeners:
       - |-
         <a href='https://developer.atlassian.com/static/javadoc/bitbucket-server/5.5.0/api/reference/com/atlassian/bitbucket/event/repository/RepositoryModificationRequestedEvent.html'
                         target='_blank'>RepositoryModificationRequestedEvent</a>
+restConfigItems:
+  - id: dace4de9-63ed-44f8-a56b-3a3755752d00
+    ownedBy: null
+    disabled: false
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: null
+      scriptPath: com/adaptavist/SampleRest.groovy
+      parameters: {}
+    FIELD_NOTES: Current Time
+    canned-script: com.onresolve.scriptrunner.canned.common.rest.CustomRestEndpoint
+fragmentConfigItems:
+  - '@class': com.onresolve.scriptrunner.fragments.model.CustomWebItemCommand
+    id: d1438108-605b-4c68-8c7a-d9e6e878e6fb
+    disabled: false
+    FIELD_NOTES: Custom internal support button
+    canned-script: com.onresolve.scriptrunner.canned.bitbucket.fragments.CustomWebItem
+    FIELD_KEY: internal-support-button
+    FIELD_WEIGHT: 1
+    FIELD_SECTION: header.global.primary
+    FIELD_MENU_LABEL: Need support?
+    FIELD_MENU_LABEL_KEY: null
+    FIELD_LINK_CONDITION: null
+    FIELD_LINK_DESTINATION: https://www.adaptavist.com/
+    FIELD_STYLE_CLASS: null
+    FIELD_DO_WHAT: NAVIGATE
+

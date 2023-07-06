@@ -1,8 +1,144 @@
 # ScriptRunner plugin descriptor
 !descriptor
-
+fragmentConfigItems:
+  - '@class': com.onresolve.scriptrunner.fragments.model.CustomWebItemCommand
+    id: 2bcbb8d9-acfd-477f-a139-51a538f6737e
+    disabled: false
+    FIELD_NOTES: Custom internal support button
+    canned-script: com.onresolve.scriptrunner.canned.confluence.fragments.CustomWebItem
+    FIELD_KEY: internal-support-button
+    FIELD_WEIGHT: 1
+    FIELD_SECTION: system.header/right
+    FIELD_MENU_LABEL: Need Support?
+    FIELD_MENU_LABEL_KEY: null
+    FIELD_LINK_CONDITION: null
+    FIELD_LINK_DESTINATION: https://www.adaptavist.com/
+    FIELD_STYLE_CLASS: null
+    FIELD_DO_WHAT: NAVIGATE
+  - '@class': com.onresolve.scriptrunner.fragments.model.CustomWebPanelCommand
+    id: 84b57015-725c-4833-a636-027c6c18b3bf
+    disabled: false
+    name: null
+    FIELD_NOTES: Add a banner for only a certain group to see
+    canned-script: com.onresolve.scriptrunner.canned.confluence.fragments.CustomWebPanel
+    FIELD_KEY: group-banner-panel
+    FIELD_WEIGHT: 1
+    FIELD_LOCATION: atl.confluence.header
+    FIELD_MENU_LABEL: Example Banner
+    FIELD_LINK_CONDITION:
+      script: |-
+        import com.atlassian.confluence.user.UserAccessor
+        import com.atlassian.sal.api.component.ComponentLocator
+        
+        def user = context.currentUser
+        
+        if (user) {
+            def userAccessor = ComponentLocator.getComponent(UserAccessor)
+            def userGroups = userAccessor.getGroupNamesForUserName(user.name)
+            return "confluence-administrators" in userGroups
+        } else {
+            return false
+        }
+      scriptPath: null
+      parameters: {}
+    FIELD_CLASS_NAME:
+      script: |-
+        writer.write("<div style='background-color: yellow; text-align: center'>" +
+            "Don't you feel special, being able to see this banner? You should.</div>")
+      scriptPath: null
+      parameters: {}
+    FIELD_STYLE_CLASS: null
+  - '@class': com.onresolve.scriptrunner.fragments.model.HideUIElementCommand
+    id: 3539b3b5-1768-45ad-8457-b6504675a9d2
+    disabled: false
+    name: null
+    FIELD_NOTES: Hide export to word button
+    canned-script: com.onresolve.scriptrunner.canned.confluence.fragments.HideUIElement
+    FIELD_LINK_CONDITION:
+      script: 'false'
+      scriptPath: null
+      parameters: {}
+    FIELD_HIDE_ITEM:
+      - confluence.content.action.menu:word-export
+restConfigItems:
+  - id: dace4de9-63ed-44f8-a56b-3a3755752d00
+    disabled: false
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: null
+      scriptPath: com/adaptavist/SampleRest.groovy
+      parameters: {}
+    FIELD_NOTES: Current Time
+    canned-script: com.onresolve.scriptrunner.canned.common.rest.CustomRestEndpoint
+scriptJobs:
+  - '@class': com.onresolve.scriptrunner.scheduled.model.CqlEscalationServiceCommand
+    id: 8d144003-6877-474b-b5a0-2c1c18b2764b
+    scheduleType: CRON_EXPRESSION
+    disabled: false
+    name: null
+    nextRunTime: null
+    FIELD_USER_ID: 8aab818c73caedf00173caf477050000
+    FIELD_INTERVAL: 0 30 0 ? * *
+    FIELD_NOTES: Add a label to outdated pages
+    FIELD_RUN_ONCE_DATE: null
+    FIELD_JOB_CODE:
+      script: |
+        import com.atlassian.confluence.labels.Label
+        import com.atlassian.confluence.labels.LabelManager
+        import com.atlassian.sal.api.component.ComponentLocator
+        import static com.atlassian.confluence.labels.Namespace.GLOBAL
+        import com.onresolve.scriptrunner.parameters.annotation.ShortTextInput
+        
+        @ShortTextInput(label = 'Label', description = 'Label to add to pages')
+        String labelName
+        assert labelName
+        
+        def labelManager = ComponentLocator.getComponent(LabelManager)
+        def label = labelManager.getLabel(labelName) ?: labelManager.createLabel(new Label(labelName, GLOBAL))
+        hits.each { page ->
+            if (!page.labels*.name.contains(labelName)) {
+                labelManager.addLabel(page, label)
+            }
+        }
+      scriptPath: null
+      parameters:
+        labelName: olde
+    FIELD_CQL_CLAUSE: space = "SAMPLE" and type = page and lastModified < now('-26w')
+    canned-script: com.onresolve.scriptrunner.canned.confluence.jobs.CqlEscalationService
+  - '@class': com.onresolve.scriptrunner.scheduled.model.TimedArchivalNotificationCommand
+    id: d8f7720c-6a81-41eb-a470-8e5b6f884a25
+    scheduleType: CRON_EXPRESSION
+    disabled: false
+    name: null
+    nextRunTime: null
+    FIELD_USER_ID: 8aab818c73caedf00173caf477050000
+    FIELD_INTERVAL: 0 0 1 * * ?
+    FIELD_NOTES: Notify all confluence-administrators of content older than one year
+    FIELD_RUN_ONCE_DATE: null
+    FIELD_CQL_CLAUSE: space = "SAMPLE"
+    FIELD_GROUP_KEY: confluence-administrators
+    FIELD_AGE_PICKER:
+      agePickerRange:
+        label: Older than 1 year
+        value: OLDER_THAN_1_YEAR
+      timeLength:
+        unit: day
+        value: null
+      dateRange:
+        to: null
+        from: null
+    canned-script: com.onresolve.scriptrunner.canned.confluence.jobs.TimedArchivalNotification
 scriptListeners:
-  - FIELD_NOTES: Change the description of all new spaces
+  - id: ffdecccd-7ef0-40a2-a6d9-04059b703b6c
+    FIELD_NOTES: Sample event listner on page creation
+    events:
+      - com.atlassian.confluence.event.events.content.page.PageCreateEvent
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: log.warn "Executing custom listener for new page ${event.page.title}"
+      scriptPath: null
+      parameters: {}
+    canned-script: com.onresolve.scriptrunner.canned.confluence.events.SimpleScriptedEventHandler
+  - id: d3304e0c-119b-40d9-84f6-ff872b3ce062
+    FIELD_NOTES: Change the description of all new spaces
     events:
       - com.atlassian.confluence.event.events.space.SpaceCreateEvent
     FIELD_SCRIPT_FILE: com/adaptavist/CustomEventListenerScript.groovy
