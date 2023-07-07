@@ -12,5 +12,5 @@ import java.time.LocalTime
 
 currentTime(httpMethod: "GET", groups: ["stash-users"]) { MultivaluedMap queryParams, String body ->
     def now = LocalTime.now().format("HH:mm:ss")
-    return Response.ok(new JsonBuilder([currentTime: now]).toString()).build();
+    return Response.ok(new JsonBuilder([currentTime: now]).toString()).build()
 }
