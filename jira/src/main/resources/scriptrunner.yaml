@@ -1,8 +1,8 @@
 # ScriptRunner JIRA plugin descriptor
 !descriptor
-
 scriptListeners:
-  - FIELD_LISTENER_NOTES: Change every new project's description
+  - id: 0da49771-6338-431b-a875-887b2d89f707
+    FIELD_LISTENER_NOTES: Change every new project's description
     projects:
       - ''
     events:
@@ -11,3 +11,27 @@ scriptListeners:
     canned-script: com.onresolve.scriptrunner.canned.jira.workflow.listeners.CustomListener
     friendlyEventNames: ProjectCreatedEvent
     name: Custom listener
+restConfigItems:
+  - id: dace4de9-63ed-44f8-a56b-3a3755752d00
+    disabled: false
+    FIELD_SCRIPT_FILE_OR_SCRIPT:
+      script: null
+      scriptPath: com/adaptavist/SampleRest.groovy
+      parameters: {}
+    FIELD_NOTES: Current Time
+    canned-script: com.onresolve.scriptrunner.canned.common.rest.CustomRestEndpoint
+fragmentConfigItems:
+  - '@class': com.onresolve.scriptrunner.fragments.model.CustomWebItemCommand
+    id: 2bcbb8d9-acfd-477f-a139-51a538f6737e
+    disabled: false
+    FIELD_NOTES: Custom internal support button
+    canned-script: com.onresolve.scriptrunner.canned.jira.fragments.CustomWebItem
+    FIELD_KEY: internal-support-button
+    FIELD_WEIGHT: 1
+    FIELD_SECTION: system.top.navigation.bar
+    FIELD_MENU_LABEL: Need Support?
+    FIELD_MENU_LABEL_KEY: null
+    FIELD_LINK_CONDITION: null
+    FIELD_LINK_DESTINATION: https://www.adaptavist.com/
+    FIELD_STYLE_CLASS: null
+    FIELD_DO_WHAT: NAVIGATE
