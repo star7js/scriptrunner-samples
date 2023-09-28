@@ -145,3 +145,14 @@ scriptListeners:
     canned-script: com.onresolve.scriptrunner.canned.confluence.events.SimpleScriptedEventHandler
     friendlyEventNames: SpaceCreateEvent
     name: Custom event listener
+customSearchFields:
+  - id: c4bdcfc7-fe55-4efb-b0be-fb18af8dc5a5
+    version: 2
+    name: incomingLinkCount
+    FIELD_EXTRACTOR_VALUE:
+      scriptPath: com/adaptavist/CustomSearchFieldScript.groovy
+      parameters: {}
+    FIELD_VALUE_TYPE: NUMBER
+    FIELD_CONTENT_TYPE: PAGE
+    FIELD_NOTES: Sample custom search field to store number of incoming links
+    canned-script: com.onresolve.scriptrunner.canned.confluence.customsearchfields.script.CustomSearchFields
