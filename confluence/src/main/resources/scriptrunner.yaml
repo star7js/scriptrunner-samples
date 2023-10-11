@@ -156,3 +156,12 @@ customSearchFields:
     FIELD_CONTENT_TYPE: PAGE
     FIELD_NOTES: Sample custom search field to store number of incoming links
     canned-script: com.onresolve.scriptrunner.canned.confluence.customsearchfields.script.CustomSearchFields
+cqlFunctions:
+  - name: pagesCommentedOn
+    FIELD_NOTES: Find the pages commented on by a user in a space
+    paramCount: 2
+    cqlFunctionType: CQLMultiValueQueryFunction
+    FIELD_SCRIPT_FILE: com/adaptavist/CustomCqlFunctionScript.groovy
+    canned-script: com.onresolve.scriptrunner.canned.confluence.cql.functions.SimpleScriptedCqlFunctionHandler
+    id: d0bd2754-d2e1-46a3-a165-2c735f99b886
+    version: 1
