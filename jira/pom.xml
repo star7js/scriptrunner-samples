@@ -70,7 +70,7 @@
         <!-- This is required to find the parent pom and ScriptRunner dependencies -->
         <repository>
             <id>adaptavist-external</id>
-            <url>https://nexus.adaptavist.com/content/repositories/external</url>
+            <url>https://nexus.adaptavist.net/content/repositories/external</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
