@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adaptavist.pom</groupId>
         <artifactId>scriptrunner-confluence-standard</artifactId>
-        <version>75</version>
+        <version>76</version>
         <relativePath/>
     </parent>
 
