@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adaptavist.pom</groupId>
         <artifactId>scriptrunner-bitbucket-standard</artifactId>
-        <version>79</version>
+        <version>78</version>
         <relativePath/>
     </parent>
 
