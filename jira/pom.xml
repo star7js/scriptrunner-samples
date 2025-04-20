@@ -40,27 +40,93 @@
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>jira-maven-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <jvmArgs>-Xms512m -Xmx1g -server --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</jvmArgs>
-                    <applications>
-                        <!-- Uncomment these if you wish to include them -->
+                    <productVersion>${jira.version}</productVersion>
+                    <productDataVersion>${jira.version}</productDataVersion>
+                    <enableQuickReload>true</enableQuickReload>
+                    <enableFastdev>false</enableFastdev>
+                    <allowGoogleTracking>false</allowGoogleTracking>
+                    <jvmArgs>-Xms512m -Xmx1g -server --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</jvmArgs>
 
-                        <!-- Include Jira Software features -->
-                        
+                    <!-- See here for an explanation of default licenses: -->
+                    <!-- https://developer.atlassian.com/docs/advanced-topics/license-keys-for-testing -->
+                    <enablePde>false</enablePde>
+                    <skipRestDocGeneration>true</skipRestDocGeneration>
+                    <instructions>
+                        <Import-Package>
+                            com.atlassian.activeobjects.external,
+                            com.atlassian.activeobjects.module,
+                            org.apache.log4j;resolution:=optional,
+                            org.osgi.service.blueprint,
+                            org.springframework.osgi.service.importer.support;version="[1.2.0, 2.0.0)",
+                            org.springframework.osgi.service.exporter.support;version="[1.2.0, 2.0.0)",
+                            org.springframework.context.annotation;version="[2.5, 4.0.0)",
+                            org.springframework.beans.factory.annotation;version="[2.5, 4.0.0)",
+                            org.springframework.stereotype;version="[2.5, 4.0.0)",
+                            org.eclipse.gemini.blueprint.context.support;version="[1.0.0, 3.0.0)";resolution:=optional,
+                            com.atlassian.scriptrunner.runner;
+                            resolution:=optional,
+                            com.onresolve.scriptrunner.runner;
+                            resolution:=optional,
+                            org.codehaus.groovy.jsr223,
+                            org.codehaus.groovy.runtime,
+                            com.google.common.collect;version="11.0",
+                            org.apache.commons.lang3,
+                            com.atlassian.plugin.osgi.bridge.external,
+                            com.atlassian.sal.api.lifecycle,
+                            org.osgi.framework,
+                            com.atlassian.scriptrunner.rest;
+                            resolution:=optional,
+                            *</Import-Package>
+                        <Export-Package>
+                        </Export-Package>
+                        <Atlassian-Package-Dependency-Resolution>greedy
+                        </Atlassian-Package-Dependency-Resolution>
+                        <Spring-Context>*;timeout:=60</Spring-Context>
+                    </instructions>
+
+                    <!--
+                    <applications>
+                         Uncomment these if you wish to include them
                         <application>
                             <applicationKey>jira-software</applicationKey>
-                            <version>${jira.software.version}</version>
+                            <version>${jira.software.application.version}</version>
                         </application>
-                        
-
-                        <!-- Include Jira Service Desk features -->
-                        
                         <application>
                             <applicationKey>jira-servicedesk</applicationKey>
-                            <version>${jira.servicedesk.version}</version>
+                            <version>${jira.servicedesk.application.version}</version>
                         </application>
-                        
                     </applications>
+                    -->
+
+                    <!--
+                    <pluginArtifacts>
+                        Needed because of https://ecosystem.atlassian.net/browse/AMPS-1404
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>atlassian-jira-platform</artifactId>
+                            <version>${jira.version}</version>
+                        </pluginArtifact>
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>jira-api</artifactId>
+                            <version>${jira.version}</version>
+                        </pluginArtifact>
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>jira-core</artifactId>
+                            <version>${jira.version}</version>
+                        </pluginArtifact>
+                    </pluginArtifacts>
+                    -->
+
+                    <systemPropertyVariables>
+                        <!-- Suppresses SteelEye Protection warning on Windows: -->
+                        <amol.jira.index.skipConsistencyCheck>true</amol.jira.index.skipConsistencyCheck>
+                    </systemPropertyVariables>
+
                 </configuration>
             </plugin>
             <plugin>
@@ -91,6 +157,15 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -107,5 +182,35 @@
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
         </repository>
+        <!-- Explicitly add Atlassian Public repo to help resolve pluginArtifacts -->
+        <repository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
