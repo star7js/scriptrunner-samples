@@ -64,6 +64,17 @@ cd confluence && atlas-mvn confluence:debug -U
     tail -f confluence/target/confluence/home/logs/atlassian-confluence.log
     ```
 
-*   These commands will download dependencies, build the plugin, start the application (Jira or Confluence), and install the plugin.
-*   The application will typically be available at `http://localhost:2990/jira` for Jira or `http://localhost:8080/confluence` for Confluence (check the console output for the exact URL and port).
+**To run Bitbucket:**
+
+```bash
+cd bitbucket && atlas-mvn bitbucket:debug -U
+```
+
+*   To watch the Bitbucket log file during startup (useful for debugging), open a *separate terminal* in the project root and run:
+    ```bash
+    tail -f bitbucket/target/bitbucket/home/log/atlassian-bitbucket.log
+    ```
+
+*   These commands will download dependencies, build the plugin, start the application (Jira, Confluence, or Bitbucket), and install the plugin.
+*   The application will typically be available at `http://localhost:2990/jira` for Jira, `http://localhost:8080/confluence` for Confluence, or `http://localhost:7990/bitbucket` for Bitbucket (check the console output for the exact URL and port).
 *   Press `Ctrl+C` in the terminal where the command is running to stop the application.
