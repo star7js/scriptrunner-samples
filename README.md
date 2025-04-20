@@ -2,6 +2,13 @@
 
 This repository contains sample script plugins for ScriptRunner for various Atlassian products.
 
+## Original Project Source
+
+This project is based on the original `scriptrunner-samples` provided by Adaptavist Labs:
+<https://bitbucket.org/adaptavistlabs/scriptrunner-samples>
+
+This version contains modifications, primarily to ensure compatibility with Java 17 and fix various build/runtime issues encountered with recent Atlassian Plugin SDK versions.
+
 ## Project Setup and Java 17 Compatibility
 
 These sample projects, originally designed for older environments, required several updates to build and run successfully using the Atlassian Plugin SDK with a **Java 17 JDK**.
