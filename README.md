@@ -48,11 +48,21 @@ To run the applications with the sample plugin installed, navigate to the **proj
 cd jira && atlas-mvn jira:debug -U
 ```
 
+*   To watch the Jira log file during startup (useful for debugging), open a *separate terminal* in the project root and run:
+    ```bash
+    tail -f jira/target/jira/home/log/atlassian-jira.log
+    ```
+
 **To run Confluence:**
 
 ```bash
 cd confluence && atlas-mvn confluence:debug -U
 ```
+
+*   To watch the Confluence log file during startup (useful for debugging), open a *separate terminal* in the project root and run:
+    ```bash
+    tail -f confluence/target/confluence/home/logs/atlassian-confluence.log
+    ```
 
 *   These commands will download dependencies, build the plugin, start the application (Jira or Confluence), and install the plugin.
 *   The application will typically be available at `http://localhost:2990/jira` for Jira or `http://localhost:8080/confluence` for Confluence (check the console output for the exact URL and port).
