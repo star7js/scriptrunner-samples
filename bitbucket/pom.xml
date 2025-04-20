@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adaptavist.pom</groupId>
         <artifactId>scriptrunner-bitbucket-standard</artifactId>
-        <version>78</version>
+        <version>71</version>
         <relativePath/>
     </parent>
 
@@ -27,11 +27,40 @@
     <properties>
         <!-- Set your Bitbucket version here -->
         <bitbucket.version>8.9.7</bitbucket.version>
+        <!-- Set logging levels for development here -->
+        <logging.levels>com.onresolve;DEBUG, com.example;DEBUG</logging.levels>
     </properties>
 
     <dependencies>
         <!-- The parent pom adds some standard dependencies, but you can add additional ones here -->
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>bitbucket-maven-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <productVersion>${bitbucket.version}</productVersion>
+                    <productDataVersion>${bitbucket.version}</productDataVersion>
+                    <enableQuickReload>true</enableQuickReload>
+                    <!-- TODO: Verify if all these add-opens are needed for Bitbucket ${bitbucket.version} on Java 17 -->
+                    <jvmArgs>-Xms1g -Xmx2g --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</jvmArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <!-- This is required to find the parent pom and ScriptRunner dependencies -->
@@ -46,5 +75,46 @@
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
         </repository>
+        <!-- Add Atlassian Public repo as well -->
+        <repository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>adaptavist-external</id>
+            <url>https://nexus.adaptavist.net/content/repositories/external</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
