@@ -41,6 +41,14 @@
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>confluence-maven-plugin</artifactId>
                 <configuration>
+                    <!-- Add H2 dependency to container classpath -->
+                    <libArtifacts>
+                        <libArtifact>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>1.4.200</version>
+                        </libArtifact>
+                    </libArtifacts>
                     <productVersion>${confluence.version}</productVersion>
                     <productDataVersion>${confluence.version}</productDataVersion>
                     <enableQuickReload>true</enableQuickReload>
