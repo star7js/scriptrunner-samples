@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adaptavist.pom</groupId>
         <artifactId>scriptrunner-confluence-standard</artifactId>
-        <version>78</version>
+        <version>71</version>
         <relativePath/>
     </parent>
 
@@ -79,5 +79,50 @@
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
         </repository>
+        <!-- Add Atlassian Public repo as well, mirroring Jira POM setup -->
+        <repository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <!-- Adding Adaptavist external repo here as well to help resolve parent POM -->
+        <pluginRepository>
+            <id>adaptavist-external</id>
+            <url>https://nexus.adaptavist.net/content/repositories/external</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+        </pluginRepository>
+        <!-- We might need this later if Confluence plugin dependencies have issues -->
+        <!--
+        <pluginRepository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </pluginRepository>
+        -->
+    </pluginRepositories>
 </project>
