@@ -30,4 +30,23 @@ These sample projects, originally designed for older environments, required seve
 
 *   You **must** use a **Java 17 JDK** to build and run these projects.
 *   The included POM files are configured with the necessary compiler settings and JVM arguments for Java 17 compatibility.
-*   Run `atlas-mvn jira:debug -U` (in the `jira` directory) or `atlas-mvn confluence:debug -U` (in the `confluence` directory) to start the applications with the plugin installed.
+
+### Running the Applications:
+
+To run the applications with the sample plugin installed, navigate to the **project root directory** in your terminal and use the following commands:
+
+**To run Jira:**
+
+```bash
+cd jira && atlas-mvn jira:debug -U
+```
+
+**To run Confluence:**
+
+```bash
+cd confluence && atlas-mvn confluence:debug -U
+```
+
+*   These commands will download dependencies, build the plugin, start the application (Jira or Confluence), and install the plugin.
+*   The application will typically be available at `http://localhost:2990/jira` for Jira or `http://localhost:8080/confluence` for Confluence (check the console output for the exact URL and port).
+*   Press `Ctrl+C` in the terminal where the command is running to stop the application.
