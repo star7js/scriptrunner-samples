@@ -18,11 +18,6 @@
         <module>jira</module>
     </modules>
 
-    <scm>
-        <developerConnection>scm:git:ssh://git@stash.adaptavist.com:7999/sr/scriptrunner-samples.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
