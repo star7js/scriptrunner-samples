@@ -76,5 +76,5 @@ cd bitbucket && atlas-mvn bitbucket:debug -U
     ```
 
 *   These commands will download dependencies, build the plugin, start the application (Jira, Confluence, or Bitbucket), and install the plugin.
-*   The application will typically be available at `http://localhost:2990/jira` for Jira, `http://localhost:8080/confluence` for Confluence, or `http://localhost:7990/bitbucket` for Bitbucket (check the console output for the exact URL and port).
+*   The application will typically be available at `http://localhost:8080/jira` for Jira, `http://localhost:8080/confluence` for Confluence, or `http://localhost:8080/bitbucket` for Bitbucket (check the console output for the exact URL and port).
 *   Press `Ctrl+C` in the terminal where the command is running to stop the application.
